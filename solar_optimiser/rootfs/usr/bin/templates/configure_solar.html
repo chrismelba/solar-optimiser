@@ -49,7 +49,8 @@
         <select id="solar_generation" name="solar_generation" required>
             <option value="">Select an entity...</option>
             {% for entity in entities %}
-                {% if 'power' in entity.entity_id.lower() or 'solar' in entity.entity_id.lower() %}
+                {% if ('power' in entity.entity_id.lower() or 'energy' in entity.entity_id.lower()) and 
+                      ('solar' in entity.entity_id.lower() or 'pv' in entity.entity_id.lower()) %}
                     <option value="{{ entity.entity_id }}" {% if entity.entity_id == config.solar_generation %}selected{% endif %}>
                         {{ entity.attributes.friendly_name|default(entity.entity_id) }} ({{ entity.entity_id }})
                     </option>
@@ -64,7 +65,8 @@
         <select id="grid_power" name="grid_power" required>
             <option value="">Select an entity...</option>
             {% for entity in entities %}
-                {% if 'grid' in entity.entity_id.lower() or 'power' in entity.entity_id.lower() %}
+                {% if ('power' in entity.entity_id.lower() or 'energy' in entity.entity_id.lower()) and 
+                      ('grid' in entity.entity_id.lower() or 'utility' in entity.entity_id.lower()) %}
                     <option value="{{ entity.entity_id }}" {% if entity.entity_id == config.grid_power %}selected{% endif %}>
                         {{ entity.attributes.friendly_name|default(entity.entity_id) }} ({{ entity.entity_id }})
                     </option>
@@ -79,7 +81,8 @@
         <select id="solar_forecast" name="solar_forecast" required>
             <option value="">Select an entity...</option>
             {% for entity in entities %}
-                {% if 'forecast' in entity.entity_id.lower() or 'solar' in entity.entity_id.lower() %}
+                {% if ('forecast' in entity.entity_id.lower() or 'prediction' in entity.entity_id.lower()) and 
+                      ('solar' in entity.entity_id.lower() or 'pv' in entity.entity_id.lower()) %}
                     <option value="{{ entity.entity_id }}" {% if entity.entity_id == config.solar_forecast %}selected{% endif %}>
                         {{ entity.attributes.friendly_name|default(entity.entity_id) }} ({{ entity.entity_id }})
                     </option>

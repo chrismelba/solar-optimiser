@@ -25,3 +25,8 @@ panel_admin: true
 ingress: true
 hassio_api: true
 hassio_role: admin
+hassio_dns: true
+startup: application
+services:
+  - mqtt:need
+  - hassio:need
