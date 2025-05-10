@@ -22,3 +22,6 @@ schema:
 image: "ghcr.io/chrismelba/{arch}-addon-solar-optimiser"
 panel_icon: "mdi:solar-power"
 panel_admin: true
+ingress: true
+hassio_api: true
+hassio_role: admin

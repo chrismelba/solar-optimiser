@@ -34,12 +34,19 @@ def get_hass_client():
     hass_url = os.environ.get('HASS_URL', 'http://supervisor/core')
     hass_token = os.environ.get('HASS_TOKEN', '')
     
+    logger.debug(f"Home Assistant URL: {hass_url}")
+    logger.debug(f"Home Assistant Token available: {'Yes' if hass_token else 'No'}")
+    
     if not hass_token:
         logger.error("No Home Assistant token found in environment")
         return None
     
     try:
-        return Client(hass_url, hass_token)
+        client = Client(hass_url, hass_token)
+        # Test the connection
+        test_entities = client.get_entities()
+        logger.debug(f"Successfully connected to Home Assistant. Found {len(test_entities)} entities")
+        return client
     except Exception as e:
         logger.error(f"Failed to connect to Home Assistant: {e}")
         return None
@@ -68,8 +75,14 @@ def configure_solar():
     if hass:
         try:
             entities = hass.get_entities()
+            logger.debug(f"Retrieved {len(entities)} entities from Home Assistant")
+            # Log some example entities for debugging
+            for entity in entities[:5]:
+                logger.debug(f"Example entity: {entity.name} ({entity.entity_id})")
         except Exception as e:
             logger.error(f"Failed to get entities: {e}")
+    else:
+        logger.error("Could not connect to Home Assistant")
     
     return render_template('configure_solar.html', 
                          entities=entities,
