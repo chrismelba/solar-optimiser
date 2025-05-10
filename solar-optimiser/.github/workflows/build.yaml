@@ -43,6 +43,6 @@ jobs:
           tags: |
             ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:latest
             ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ env.VERSION }}
-          platforms: linux/amd64
+          platforms: amd64
           build-args: |
             BUILD_FROM=homeassistant/amd64-base 
