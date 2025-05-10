@@ -4,7 +4,7 @@ from flask import Flask, render_template, jsonify, request, redirect, url_for
 import os
 import logging
 import json
-from homeassistant_api import Client
+import requests
 
 # Set up logging
 logging.basicConfig(level=logging.DEBUG)
@@ -29,7 +29,7 @@ def save_config(config):
     with open(CONFIG_FILE, 'w') as f:
         json.dump(config, f)
 
-def get_hass_client():
+def get_hass_entities():
     # Get Home Assistant URL and token from environment
     hass_url = os.environ.get('HASS_URL', 'http://supervisor/core')
     hass_token = os.environ.get('HASS_TOKEN', '')
@@ -39,17 +39,29 @@ def get_hass_client():
     
     if not hass_token:
         logger.error("No Home Assistant token found in environment")
-        return None
+        return []
     
     try:
-        client = Client(hass_url, hass_token)
-        # Test the connection
-        test_entities = client.get_entities()
-        logger.debug(f"Successfully connected to Home Assistant. Found {len(test_entities)} entities")
-        return client
+        headers = {
+            "Authorization": f"Bearer {hass_token}",
+            "Content-Type": "application/json",
+        }
+        
+        # Get states from Home Assistant
+        response = requests.get(f"{hass_url}/api/states", headers=headers)
+        response.raise_for_status()
+        
+        entities = response.json()
+        logger.debug(f"Successfully retrieved {len(entities)} entities from Home Assistant")
+        
+        # Log some example entities for debugging
+        for entity in entities[:5]:
+            logger.debug(f"Example entity: {entity.get('attributes', {}).get('friendly_name')} ({entity.get('entity_id')})")
+        
+        return entities
     except Exception as e:
-        logger.error(f"Failed to connect to Home Assistant: {e}")
-        return None
+        logger.error(f"Failed to get entities from Home Assistant: {e}")
+        return []
 
 @app.route('/')
 def index():
@@ -70,19 +82,7 @@ def configure_solar():
         return redirect(url_for('configure_solar'))
     
     # Get Home Assistant entities
-    hass = get_hass_client()
-    entities = []
-    if hass:
-        try:
-            entities = hass.get_entities()
-            logger.debug(f"Retrieved {len(entities)} entities from Home Assistant")
-            # Log some example entities for debugging
-            for entity in entities[:5]:
-                logger.debug(f"Example entity: {entity.name} ({entity.entity_id})")
-        except Exception as e:
-            logger.error(f"Failed to get entities: {e}")
-    else:
-        logger.error("Could not connect to Home Assistant")
+    entities = get_hass_entities()
     
     return render_template('configure_solar.html', 
                          entities=entities,

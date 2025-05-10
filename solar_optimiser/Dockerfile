@@ -13,7 +13,7 @@ RUN \
     curl -sSLf -o /usr/bin/tempio \
     "https://github.com/home-assistant/tempio/releases/download/${TEMPIO_VERSION}/tempio_${BUILD_ARCH}" && \
     chmod a+x /usr/bin/tempio && \
-    pip3 install flask homeassistant-api
+    pip3 install flask requests
 
 # Copy root filesystem
 COPY rootfs /
