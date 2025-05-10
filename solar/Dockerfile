@@ -18,15 +18,16 @@ RUN \
 COPY rootfs/requirements.txt /tmp/
 RUN pip3 install --no-cache-dir -r /tmp/requirements.txt
 
-# Create app directory
-RUN mkdir -p /app
+# Create app directory and set permissions
+RUN mkdir -p /app && \
+    chmod -R 755 /app
 
 # Copy root filesystem
 COPY rootfs /
 
 # Set proper permissions
-RUN chmod a+x /run && \
-    chmod -R a+x /app
+RUN chmod 755 /run && \
+    chmod -R 755 /app
 
 # Set the working directory
 WORKDIR /app
