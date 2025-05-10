@@ -1,10 +1,5 @@
 #!/usr/bin/with-contenv bashio
 
-# Print debug information
-bashio::log.info "Starting Solar Optimiser..."
-
-# Ensure we're in the right directory
-cd /app || bashio::exit.nok "Could not change to /app directory"
-
 # Start the Python application
+cd /app
 exec python3 /app/app.py 
