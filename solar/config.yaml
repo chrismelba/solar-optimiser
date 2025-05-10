@@ -3,7 +3,7 @@ name: Solar Optimiser
 version: "1.0.0"
 slug: solar-optimiser
 description: Solar optimization add-on for Home Assistant
-url: "https://github.com/chris/solar-optimiser/tree/main/solar"
+url: "https://github.com/chrismelba/solar-optimiser/tree/main/solar"
 arch:
   - armhf
   - armv7
@@ -19,4 +19,4 @@ options:
   message: "Hello world..."
 schema:
   message: "str?"
-image: "chris/{arch}-addon-solar-optimiser"
+image: "ghcr.io/chrismelba/{arch}-addon-solar-optimiser"
