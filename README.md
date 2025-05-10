@@ -4,6 +4,15 @@
 
 A Home Assistant add-on that helps optimize solar panel usage and energy management.
 
+## Installation
+
+1. In Home Assistant, navigate to **Settings** → **Add-ons** → **Add-on Store**
+2. Click the menu (⋮) in the top right
+3. Select **Repositories**
+4. Add this repository URL: `https://github.com/chrismelba/solar-optimiser`
+5. Click **Add**
+6. The add-on will appear in the add-on store. Click **Install**
+
 ## Features
 
 - Web-based interface for entity selection
@@ -11,26 +20,15 @@ A Home Assistant add-on that helps optimize solar panel usage and energy managem
 - Energy usage monitoring
 - Customizable settings
 
-## Installation
-
-### Add-on Installation
-
-1. Add this repository to your Home Assistant add-ons:
-   - Go to Supervisor > Add-on Store
-   - Click the three dots in the top right
-   - Click "Add repository"
-   - Enter the URL of this repository
-2. Install the "Solar Optimiser" add-on
-3. Start the add-on
-4. Access the web interface at `http://your-home-assistant:8099`
-
 ## Configuration
 
-The add-on can be configured through the Home Assistant add-on configuration panel. Available options:
+The add-on can be configured through the web interface at `http://your-home-assistant:8099`:
 
-```yaml
-# Add configuration options here
-```
+1. Select your solar generation entity
+2. Select your grid power entity
+3. Select your battery percentage entity
+4. Set your battery capacity
+5. Click Save to persist your configuration
 
 ## Usage
 
@@ -48,8 +46,8 @@ The add-on can be configured through the Home Assistant add-on configuration pan
 2. Make your changes
 3. Build the add-on:
    ```bash
-   cd addon
-   docker build -t solar_optimiser .
+   cd solar-optimiser
+   docker build .
    ```
 
 ### Frontend Development
@@ -58,7 +56,7 @@ The frontend is built with React and can be developed locally:
 
 1. Navigate to the frontend directory:
    ```bash
-   cd addon/app/frontend
+   cd solar-optimiser/app/frontend
    ```
 2. Install dependencies:
    ```bash
@@ -71,7 +69,7 @@ The frontend is built with React and can be developed locally:
 
 ## Support
 
-If you have any issues or questions, please [open an issue](https://github.com/yourusername/solar-optimiser/issues).
+If you have any issues or questions, please [open an issue](https://github.com/chrismelba/solar-optimiser/issues).
 
 ## License
 
