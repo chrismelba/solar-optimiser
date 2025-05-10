@@ -5,4 +5,5 @@ description: Optimise your solar and battery usage in Home Assistant
 version: 0.1.0
 arch:
   - amd64
+repository: ghcr.io/chrismelba/solar-optimiser
 image: ghcr.io/chrismelba/solar-optimiser/amd64 
