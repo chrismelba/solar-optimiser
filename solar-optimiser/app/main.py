@@ -1,11 +1,11 @@
 """Solar Optimiser Add-on."""
 import os
 import json
-from flask import Flask, jsonify, request
+from flask import Flask, jsonify, request, send_from_directory
 from flask_cors import CORS
 import hassio
 
-app = Flask(__name__)
+app = Flask(__name__, static_folder='static')
 CORS(app)
 
 # Initialize Home Assistant API client
@@ -13,6 +13,16 @@ hass = hassio.Hassio()
 
 # Configuration file path
 CONFIG_FILE = '/data/options.json'
+
+@app.route('/')
+def serve_index():
+    """Serve the main page."""
+    return send_from_directory(app.static_folder, 'index.html')
+
+@app.route('/<path:path>')
+def serve_static(path):
+    """Serve static files."""
+    return send_from_directory(app.static_folder, path)
 
 @app.route('/api/entities', methods=['GET'])
 def get_entities():
