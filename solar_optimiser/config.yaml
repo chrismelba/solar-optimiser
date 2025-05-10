@@ -20,3 +20,5 @@ options:
 schema:
   message: "str?"
 image: "ghcr.io/chrismelba/{arch}-addon-solar-optimiser"
+panel_icon: "mdi:solar-power"
+panel_admin: true

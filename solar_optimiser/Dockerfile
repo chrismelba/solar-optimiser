@@ -13,12 +13,12 @@ RUN \
     curl -sSLf -o /usr/bin/tempio \
     "https://github.com/home-assistant/tempio/releases/download/${TEMPIO_VERSION}/tempio_${BUILD_ARCH}" && \
     chmod a+x /usr/bin/tempio && \
-    pip3 install flask
+    pip3 install flask homeassistant-api
 
 # Copy root filesystem
 COPY rootfs /
 
 # Make service scripts executable
-RUN chmod a+x /etc/services.d/solar-optimiser/run && \
-    chmod a+x /etc/services.d/solar-optimiser/finish && \
-    chmod a+x /usr/bin/my_program
+RUN chmod a+x /usr/bin/my_program && \
+    chmod a+x /etc/services.d/solar-optimiser/run && \
+    chmod a+x /etc/services.d/solar-optimiser/finish

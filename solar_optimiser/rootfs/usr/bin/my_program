@@ -1,8 +1,10 @@
 #!/usr/bin/python3
 
-from flask import Flask, render_template, jsonify
+from flask import Flask, render_template, jsonify, request, redirect, url_for
 import os
 import logging
+import json
+from homeassistant_api import Client
 
 # Set up logging
 logging.basicConfig(level=logging.DEBUG)
@@ -10,10 +12,78 @@ logger = logging.getLogger(__name__)
 
 app = Flask(__name__)
 
+# Configuration file path
+CONFIG_FILE = '/data/solar_config.json'
+
+def load_config():
+    if os.path.exists(CONFIG_FILE):
+        with open(CONFIG_FILE, 'r') as f:
+            return json.load(f)
+    return {
+        'solar_generation': '',
+        'grid_power': '',
+        'solar_forecast': ''
+    }
+
+def save_config(config):
+    with open(CONFIG_FILE, 'w') as f:
+        json.dump(config, f)
+
+def get_hass_client():
+    # Get Home Assistant URL and token from environment
+    hass_url = os.environ.get('HASS_URL', 'http://supervisor/core')
+    hass_token = os.environ.get('HASS_TOKEN', '')
+    
+    if not hass_token:
+        logger.error("No Home Assistant token found in environment")
+        return None
+    
+    try:
+        return Client(hass_url, hass_token)
+    except Exception as e:
+        logger.error(f"Failed to connect to Home Assistant: {e}")
+        return None
+
 @app.route('/')
 def index():
     logger.debug('Received request for index page')
     return render_template('index.html')
+
+@app.route('/configure/solar', methods=['GET', 'POST'])
+def configure_solar():
+    logger.debug('Received request for solar configuration page')
+    
+    if request.method == 'POST':
+        config = {
+            'solar_generation': request.form.get('solar_generation'),
+            'grid_power': request.form.get('grid_power'),
+            'solar_forecast': request.form.get('solar_forecast')
+        }
+        save_config(config)
+        return redirect(url_for('configure_solar'))
+    
+    # Get Home Assistant entities
+    hass = get_hass_client()
+    entities = []
+    if hass:
+        try:
+            entities = hass.get_entities()
+        except Exception as e:
+            logger.error(f"Failed to get entities: {e}")
+    
+    return render_template('configure_solar.html', 
+                         entities=entities,
+                         config=load_config())
+
+@app.route('/configure/battery')
+def configure_battery():
+    logger.debug('Received request for battery configuration page')
+    return render_template('configure_battery.html')
+
+@app.route('/configure/devices')
+def configure_devices():
+    logger.debug('Received request for devices configuration page')
+    return render_template('configure_devices.html')
 
 @app.route('/api/status')
 def status():
