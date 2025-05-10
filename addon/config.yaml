@@ -1,0 +1,19 @@
+name: Solar Optimiser
+version: "0.1.0"
+slug: solar_optimiser
+description: "A Home Assistant add-on to optimize solar panel usage and energy management"
+arch:
+  - aarch64
+  - amd64
+  - armhf
+  - armv7
+  - i386
+startup: application
+init: false
+panel_icon: mdi:solar-power
+ports:
+  8099/tcp: 8099
+webui: "http://[HOST]:[PORT:8099]"
+options: {}
+schema: {}
+image: "solar_optimiser/{arch}" 

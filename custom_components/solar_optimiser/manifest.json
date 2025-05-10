@@ -1,0 +1,11 @@
+{
+  "domain": "solar_optimiser",
+  "name": "Solar Optimiser",
+  "documentation": "https://github.com/yourusername/solar-optimiser",
+  "dependencies": [],
+  "codeowners": ["@yourusername"],
+  "requirements": [],
+  "version": "0.1.0",
+  "config_flow": true,
+  "iot_class": "calculated"
+} 
