@@ -1,0 +1,15 @@
+name: "Hello World Addon"
+version: "1.0.0"
+slug: "hello_world_addon"
+description: "A simple Hello World addon for Home Assistant"
+arch:
+  - aarch64
+  - amd64
+  - armhf
+  - armv7
+  - i386
+startup: application
+ports:
+  8080/tcp: 8080
+webui: "http://[HOST]:[PORT:8080]"
+init: false 

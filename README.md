@@ -6,12 +6,20 @@ A Home Assistant add-on that helps optimize solar panel usage and energy managem
 
 ## Installation
 
-1. In Home Assistant, navigate to **Settings** → **Add-ons** → **Add-on Store**
-2. Click the menu (⋮) in the top right
-3. Select **Repositories**
-4. Add this repository URL: `https://github.com/chrismelba/solar-optimiser`
-5. Click **Add**
-6. The add-on will appear in the add-on store. Click **Install**
+1. Add this repository to your Home Assistant instance:
+   - Go to the Home Assistant add-ons page
+   - Click on the three dots in the top right
+   - Click on "Check for updates"
+   - Click on "Add-on Store"
+   - Click on the three dots in the top right
+   - Click on "Repositories"
+   - Add the URL of this repository
+
+2. Install the "Solar Optimiser" from the add-on store
+
+3. Start the add-on
+
+4. Access the web interface by clicking on the "Open Web UI" button in the add-on page
 
 ## Features
 
@@ -69,7 +77,7 @@ The frontend is built with React and can be developed locally:
 
 ## Support
 
-If you have any issues or questions, please [open an issue](https://github.com/chrismelba/solar-optimiser/issues).
+If you have any issues or questions, please open an issue in this repository.
 
 ## License
 
