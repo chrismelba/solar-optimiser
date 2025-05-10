@@ -1,4 +1,4 @@
-ARG BUILD_FROM
+ARG BUILD_FROM=homeassistant/base
 FROM ${BUILD_FROM}
 
 # Set shell
