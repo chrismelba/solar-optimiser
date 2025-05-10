@@ -18,10 +18,10 @@ RUN \
   \
   && apk add --no-cache \
     python3=3.12.10-r0 \
-    gcc \
-    python3-dev \
-    musl-dev \
-    linux-headers \
+    gcc=13.2.1_git20231014-r0 \
+    python3-dev=3.12.10-r0 \
+    musl-dev=1.2.4_git20230717-r4 \
+    linux-headers=6.4-r0 \
   \
   && pip3 install -r /tmp/requirements.txt \
   \
