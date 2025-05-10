@@ -1,19 +1,34 @@
 #!/usr/bin/with-contenv bashio
 # ==============================================================================
-# Start the example service
+# Start the solar optimiser service
 # s6-overlay docs: https://github.com/just-containers/s6-overlay
 # ==============================================================================
 
-# Add your code here
+bashio::log.info "Starting solar optimiser service..."
 
-# Declare variables
-declare message
+# Check if Python is available
+if ! command -v python3 &> /dev/null; then
+    bashio::log.error "Python3 is not installed!"
+    exit 1
+fi
 
-## Get the 'message' key from the user config options.
-message=$(bashio::config 'message')
+# Check if the program exists
+if [ ! -f /usr/bin/my_program ]; then
+    bashio::log.error "my_program not found at /usr/bin/my_program"
+    exit 1
+fi
 
-## Print the message the user supplied, defaults to "Hello World..."
-bashio::log.info "${message:="Hello World..."}"
+# Check if the program is executable
+if [ ! -x /usr/bin/my_program ]; then
+    bashio::log.error "my_program is not executable"
+    exit 1
+fi
 
-## Run your program
-exec /usr/bin/my_program
+# Check if templates directory exists
+if [ ! -d /usr/bin/templates ]; then
+    bashio::log.error "templates directory not found at /usr/bin/templates"
+    exit 1
+fi
+
+bashio::log.info "Starting Python web server..."
+exec python3 /usr/bin/my_program
