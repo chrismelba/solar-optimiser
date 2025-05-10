@@ -23,14 +23,14 @@ RUN mkdir -p /app && \
     chmod -R 755 /app
 
 # Copy root filesystem
-COPY rootfs /
+COPY rootfs/run /run.sh
+RUN chmod 755 /run.sh
 
-# Set proper permissions
-RUN chmod 755 /run && \
-    chmod -R 755 /app
+# Copy app files
+COPY rootfs/app /app/
 
 # Set the working directory
 WORKDIR /app
 
 # Start the application
-CMD [ "/run" ]
+CMD [ "/run.sh" ]
