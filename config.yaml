@@ -1,0 +1,15 @@
+name: "Solar Optimiser"
+version: "0.1.0"
+slug: "solar_optimiser"
+description: "A simple web server addon"
+arch:
+  - aarch64
+  - amd64
+  - armhf
+  - armv7
+  - i386
+startup: application
+init: false
+ports:
+  8080/tcp: 8080
+webui: "http://[HOST]:[PORT:8080]"

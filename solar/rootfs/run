@@ -1,5 +1,0 @@
-#!/usr/bin/with-contenv bashio
-
-# Start the Python application
-cd /app
-exec python3 /app/app.py 
