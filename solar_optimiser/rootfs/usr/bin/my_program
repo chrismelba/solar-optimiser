@@ -39,21 +39,8 @@ def get_hass_entities():
         return []
     
     try:
-        # Get Home Assistant token from supervisor
-        supervisor_url = 'http://supervisor'
-        response = requests.get(
-            f"{supervisor_url}/auth",
-            headers={'Authorization': f'Bearer {supervisor_token}'}
-        )
-        response.raise_for_status()
-        hass_token = response.json().get('token')
-        
-        if not hass_token:
-            logger.error("Failed to get Home Assistant token from supervisor")
-            return []
-        
         headers = {
-            "Authorization": f"Bearer {hass_token}",
+            "Authorization": f"Bearer {supervisor_token}",
             "Content-Type": "application/json",
         }
         
