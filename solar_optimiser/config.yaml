@@ -12,15 +12,15 @@ arch:
   - i386
 ports:
   8080/tcp: 8080
-init: false
+init: true
 map:
   - share:rw
 options:
   message: "Hello world..."
   hass_url: "http://supervisor/core"
 schema:
-  message: "str?"
-  hass_url: "str?"
+  message: "str"
+  hass_url: "str"
 image: "ghcr.io/chrismelba/{arch}-addon-solar-optimiser"
 panel_icon: "mdi:solar-power"
 panel_admin: true
