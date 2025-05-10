@@ -1,5 +1,6 @@
-ARG BUILD_FROM
-FROM $BUILD_FROM
+# Use ARG to allow both Home Assistant addon builds and direct Docker builds
+ARG BUILD_FROM=alpine:3.18
+FROM ${BUILD_FROM}
 
 # Install Python
 RUN apk add --no-cache python3
