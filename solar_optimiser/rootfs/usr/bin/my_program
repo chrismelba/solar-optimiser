@@ -32,35 +32,26 @@ def save_config(config):
 def get_hass_entities():
     # Get Home Assistant URL and token from environment
     hass_url = os.environ.get('HASS_URL', 'http://supervisor/core')
-    hass_token = os.environ.get('HASS_TOKEN')
+    supervisor_token = os.environ.get('SUPERVISOR_TOKEN')
     
-    # Try to get token from supervisor if not in environment
-    if not hass_token:
-        try:
-            with open('/data/options.json', 'r') as f:
-                options = json.load(f)
-                hass_token = options.get('hass_token')
-        except Exception as e:
-            logger.error(f"Failed to read options.json: {e}")
-    
-    # Try to get token from supervisor API
-    if not hass_token:
-        try:
-            supervisor_url = 'http://supervisor'
-            response = requests.get(f"{supervisor_url}/auth", headers={'Authorization': 'Bearer ' + os.environ.get('SUPERVISOR_TOKEN', '')})
-            if response.status_code == 200:
-                hass_token = response.json().get('token')
-        except Exception as e:
-            logger.error(f"Failed to get token from supervisor: {e}")
-    
-    logger.debug(f"Home Assistant URL: {hass_url}")
-    logger.debug(f"Home Assistant Token available: {'Yes' if hass_token else 'No'}")
-    
-    if not hass_token:
-        logger.error("No Home Assistant token found in environment or supervisor")
+    if not supervisor_token:
+        logger.error("No supervisor token found in environment")
         return []
     
     try:
+        # Get Home Assistant token from supervisor
+        supervisor_url = 'http://supervisor'
+        response = requests.get(
+            f"{supervisor_url}/auth",
+            headers={'Authorization': f'Bearer {supervisor_token}'}
+        )
+        response.raise_for_status()
+        hass_token = response.json().get('token')
+        
+        if not hass_token:
+            logger.error("Failed to get Home Assistant token from supervisor")
+            return []
+        
         headers = {
             "Authorization": f"Bearer {hass_token}",
             "Content-Type": "application/json",
