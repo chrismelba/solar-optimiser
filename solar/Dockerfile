@@ -24,5 +24,8 @@ COPY rootfs /
 # Set the working directory
 WORKDIR /app
 
+# Make run script executable
+RUN chmod a+x /run
+
 # Start the application
-CMD [ "python3", "/app/app.py" ]
+CMD [ "/run" ]
