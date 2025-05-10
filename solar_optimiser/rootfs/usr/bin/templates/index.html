@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Solar Optimiser</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #2c3e50;
+            margin-bottom: 20px;
+        }
+        .status {
+            padding: 10px;
+            background-color: #e8f5e9;
+            border-radius: 4px;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Solar Optimiser</h1>
+        <div class="status">
+            <h2>Status</h2>
+            <p>Version: <span id="version">Loading...</span></p>
+            <p>Status: <span id="status">Loading...</span></p>
+        </div>
+    </div>
+
+    <script>
+        // Fetch status from API
+        fetch('/api/status')
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById('version').textContent = data.version;
+                document.getElementById('status').textContent = data.status;
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                document.getElementById('status').textContent = 'Error loading status';
+            });
+    </script>
+</body>
+</html> 
