@@ -5,8 +5,15 @@ FROM $BUILD_FROM
 # Execute during the build of the image
 ARG TEMPIO_VERSION BUILD_ARCH
 RUN \
+    apk add --no-cache curl && \
     curl -sSLf -o /usr/bin/tempio \
-    "https://github.com/home-assistant/tempio/releases/download/${TEMPIO_VERSION}/tempio_${BUILD_ARCH}"
+    "https://github.com/home-assistant/tempio/releases/download/${TEMPIO_VERSION}/tempio_${BUILD_ARCH}" && \
+    chmod a+x /usr/bin/tempio
 
 # Copy root filesystem
 COPY rootfs /
+
+# Make service scripts executable
+RUN chmod a+x /etc/services.d/solar-optimiser/run && \
+    chmod a+x /etc/services.d/solar-optimiser/finish && \
+    chmod a+x /usr/bin/my_program
