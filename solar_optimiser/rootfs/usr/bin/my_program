@@ -52,15 +52,9 @@ def get_hass_entities():
         
         # Use the standard Home Assistant add-on URL
         hass_url = "http://supervisor/core"
-        
-        # First test authentication with /api/services
-        logger.debug(f"Testing authentication with {hass_url}/api/services")
-        test_response = requests.get(f"{hass_url}/api/services", headers=headers)
-        test_response.raise_for_status()
-        logger.debug("Authentication test successful")
-        
-        # Now get states from Home Assistant
         logger.debug(f"Attempting to access Home Assistant at: {hass_url}/api/states")
+        
+        # Get states from Home Assistant
         response = requests.get(f"{hass_url}/api/states", headers=headers)
         response.raise_for_status()
         
