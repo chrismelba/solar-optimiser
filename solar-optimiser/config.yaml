@@ -22,4 +22,4 @@ schema:
   grid_entity: str
   battery_entity: str
   battery_capacity: float
-image: "ghcr.io/chrismelba/solar-optimiser/{arch}" 
+image: "ghcr.io/chrismelba/solar-optimiser/{arch}"
