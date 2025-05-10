@@ -31,8 +31,12 @@ def save_config(config):
 
 def get_hass_entities():
     # Get Home Assistant URL and token from environment
-    hass_url = os.environ.get('HASS_URL', 'http://supervisor/core')
+    hass_url = os.environ.get('HASS_URL')
     supervisor_token = os.environ.get('SUPERVISOR_TOKEN')
+    
+    if not hass_url:
+        logger.error("No HASS_URL found in environment")
+        return []
     
     if not supervisor_token:
         logger.error("No supervisor token found in environment")
@@ -43,6 +47,9 @@ def get_hass_entities():
             "Authorization": f"Bearer {supervisor_token}",
             "Content-Type": "application/json",
         }
+        
+        # Log the URL we're trying to access
+        logger.debug(f"Attempting to access Home Assistant at: {hass_url}/api/states")
         
         # Get states from Home Assistant
         response = requests.get(f"{hass_url}/api/states", headers=headers)
