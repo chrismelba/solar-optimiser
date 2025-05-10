@@ -42,13 +42,12 @@ def get_hass_entities():
     
     try:
         headers = {
-            "Authorization": f"Bearer {hassio_token}",
+            "X-Hassio-Key": hassio_token,
             "Content-Type": "application/json",
         }
         
-        # Debug log the Authorization header (first part only for security)
-        auth_header = headers["Authorization"]
-        logger.debug(f"Using Authorization header: {auth_header[:20]}...")
+        # Debug log the header (first part only for security)
+        logger.debug(f"Using X-Hassio-Key header: {hassio_token[:10]}...")
         
         # Use the standard Home Assistant add-on URL
         hass_url = "http://supervisor/core"
