@@ -4,11 +4,7 @@ slug: "solar_optimiser"
 description: "A Home Assistant add-on to optimize solar panel usage and energy management"
 url: "https://github.com/chrismelba/solar-optimiser"
 arch:
-  - aarch64
   - amd64
-  - armhf
-  - armv7
-  - i386
 init: false
 panel_icon: mdi:solar-power
 ports:
@@ -24,4 +20,4 @@ schema:
   grid_entity: str
   battery_entity: str
   battery_capacity: float
-image: "ghcr.io/chrismelba/{arch}-solar-optimiser" 
+image: "local/solar-optimiser/{arch}" 
