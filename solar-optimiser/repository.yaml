@@ -1,8 +1,9 @@
+---
 name: Solar Optimiser
 url: https://github.com/chrismelba/solar-optimiser
 maintainer: chrismelba
 description: Optimise your solar and battery usage in Home Assistant
-version: 0.1.0
+version: dev
 arch:
   - amd64
 image: ghcr.io/chrismelba/solar-optimiser/{arch} 
