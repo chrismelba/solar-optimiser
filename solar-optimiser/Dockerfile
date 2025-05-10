@@ -30,7 +30,11 @@ RUN pip3 install --upgrade pip && \
 
 # Install Node.js dependencies and build frontend
 WORKDIR /app/frontend
-RUN npm install && npm run build
+RUN npm install --legacy-peer-deps && \
+    npm run build
+
+# Copy the built frontend to the app directory
+RUN cp -r dist/* /app/static/
 
 # Make run script executable
 RUN chmod a+x /run.sh
