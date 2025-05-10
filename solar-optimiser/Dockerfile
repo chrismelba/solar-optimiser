@@ -10,7 +10,11 @@ RUN \
         python3 \
         py3-pip \
         nodejs \
-        npm
+        npm \
+        gcc \
+        python3-dev \
+        musl-dev \
+        linux-headers
 
 # Create app directory
 WORKDIR /app
@@ -21,7 +25,8 @@ COPY app/requirements.txt /app/
 COPY app/frontend /app/frontend
 
 # Install Python dependencies
-RUN pip3 install --no-cache-dir -r requirements.txt
+RUN pip3 install --upgrade pip && \
+    pip3 install --no-cache-dir -r requirements.txt
 
 # Install Node.js dependencies and build frontend
 WORKDIR /app/frontend
