@@ -1,4 +1,4 @@
 # https://developers.home-assistant.io/docs/add-ons/repository#repository-configuration
-name: Solar Optimiser
-url: 'https://github.com/chrismelba/solar-optimiser'
-maintainer: Chris Carter <awesome@example.com>
+name: Solar Optimiser Home Assistant add-on repository
+url: 'https://github.com/chris/solar-optimiser'
+maintainer: Awesome Maintainer <awesome@example.com>
