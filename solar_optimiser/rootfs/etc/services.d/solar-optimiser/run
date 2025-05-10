@@ -30,6 +30,12 @@ if [ ! -d /usr/bin/templates ]; then
     exit 1
 fi
 
+# Get Home Assistant URL from supervisor
+HASS_URL=$(bashio::config 'hass_url')
+if [ -z "${HASS_URL}" ]; then
+    HASS_URL="http://supervisor/core"
+fi
+
 # Export required environment variables
 export SUPERVISOR_TOKEN="${SUPERVISOR_TOKEN}"
 export HASS_URL="${HASS_URL}"

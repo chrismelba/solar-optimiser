@@ -17,14 +17,16 @@ map:
   - share:rw
 options:
   message: "Hello world..."
+  hass_url: "http://supervisor/core"
 schema:
   message: "str?"
+  hass_url: "str?"
 image: "ghcr.io/chrismelba/{arch}-addon-solar-optimiser"
 panel_icon: "mdi:solar-power"
 panel_admin: true
 startup: application
 boot: auto
-webui: "http://[HOST]:[PORT:8080]/"
+webui: "http://[HOST]:[PORT:8080]"
 watchdog: "http://[HOST]:[PORT:8080]/api/status"
 ingress: true
 ingress_port: 8080
