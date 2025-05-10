@@ -11,10 +11,12 @@ arch:
   - amd64
   - i386
 init: false
+ports:
+  8080/tcp: 8080
 map:
   - share:rw
 options:
   message: "Hello world..."
 schema:
   message: "str?"
-image: "ghcr.io/chris/{arch}-addon-solar-optimiser"
+image: "chris/{arch}-addon-solar-optimiser"
