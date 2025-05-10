@@ -34,8 +34,11 @@ def get_hass_entities():
     supervisor_token = os.environ.get('SUPERVISOR_TOKEN')
     
     if not supervisor_token:
-        logger.error("No supervisor token found in environment")
+        logger.error("No SUPERVISOR_TOKEN found in environment")
         return []
+    
+    # Debug log the token (first 10 chars only for security)
+    logger.debug(f"SUPERVISOR_TOKEN found: {supervisor_token[:10]}...")
     
     try:
         headers = {
