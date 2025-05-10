@@ -39,7 +39,7 @@ jobs:
           platforms: linux/${{ matrix.arch }}
           push: true
           build-args: |
-            BUILD_FROM=ghcr.io/hassio-addons/base/${{ matrix.arch }}
+            BUILD_FROM=homeassistant/${{ matrix.arch }}-base
           tags: |
             ghcr.io/${{ github.repository_owner }}/${{ matrix.arch }}-solar-optimiser:latest
             ghcr.io/${{ github.repository_owner }}/${{ matrix.arch }}-solar-optimiser:0.1.0 

@@ -1,4 +1,4 @@
-ARG BUILD_FROM=ghcr.io/hassio-addons/base/{arch}
+ARG BUILD_FROM=homeassistant/{arch}-base
 FROM ${BUILD_FROM}
 
 # Set shell
