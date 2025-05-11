@@ -31,7 +31,7 @@ def save_config(config):
 
 def get_hass_entities():
     # Get Home Assistant token from environment
-    supervisor_token = os.getenv("SUPERVISOR_TOKEN")
+    supervisor_token = os.environ.get('SUPERVISOR_TOKEN')
     
     if not supervisor_token:
         logger.error("No SUPERVISOR_TOKEN found in environment")
