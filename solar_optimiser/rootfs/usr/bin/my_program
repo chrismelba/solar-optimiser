@@ -31,24 +31,20 @@ def save_config(config):
 
 def get_hass_entities():
     # Get Home Assistant token from environment
-    hassio_token = os.getenv("HASSIO_TOKEN")
+    supervisor_token = os.getenv("SUPERVISOR_TOKEN")
     
-    if not hassio_token:
-        logger.error("No HASSIO_TOKEN found in environment")
+    if not supervisor_token:
+        logger.error("No SUPERVISOR_TOKEN found in environment")
         return []
     
     # Debug log the token (first 10 chars only for security)
-    logger.debug(f"HASSIO_TOKEN found: {hassio_token[:10]}...")
+    logger.debug(f"SUPERVISOR_TOKEN found: {supervisor_token[:10]}...")
     
     try:
         headers = {
-            "Authorization": f"Bearer {hassio_token}",
+            "Authorization": f"Bearer {supervisor_token}",
             "Content-Type": "application/json",
         }
-        
-        # Debug log the Authorization header (first part only for security)
-        auth_header = headers["Authorization"]
-        logger.debug(f"Using Authorization header: {auth_header[:20]}...")
         
         # Use the standard Home Assistant add-on URL
         hass_url = "http://supervisor/core"
